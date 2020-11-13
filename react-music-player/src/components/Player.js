@@ -1,4 +1,3 @@
-import { faPray } from "@fortawesome/free-solid-svg-icons";
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -8,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 const Player = () => {
   return (
-    <div className="player">
+    <div className="player-container">
       <div className="time-control">
         <p> Start time </p>
         <input type="range" />
