@@ -24,7 +24,6 @@ function App() {
     const roundedCurrent = Math.round(current);
     const roundedDuration = Math.round(duration);
     const animation = Math.round((roundedCurrent / roundedDuration) * 100);
-    console.log(animation);
     setSongInfo({
       ...songInfo,
       currentTime: current,
@@ -33,8 +32,32 @@ function App() {
     });
   };
 
+  const activeLibraryHandler = (nextPrev) => {
+    const newSongs = song.map((songs) => {
+      if (songs.id === nextPrev.id) {
+        return {
+          ...songs,
+          active: true,
+        };
+      } else {
+        return {
+          ...songs,
+          active: false,
+        };
+      }
+    });
+    setSong(newSongs);
+  };
+
+  const songEndedHandler = async () => {
+    let currentIndex = song.findIndex((songs) => songs.id === currentSong.id);
+    await setCurrentSong(song[(currentIndex + 1) % song.length]);
+    activeLibraryHandler(song[(currentIndex + 1) % song.length]);
+    if (isPlaying) audioRef.current.play();
+  };
+
   return (
-    <div className="App">
+    <div className={`App ${libraryStatus ? "library-active" : ""}`}>
       <Nav libraryStatus={libraryStatus} setLibraryStatus={setLibraryStatus} />
       <Song currentSong={currentSong} />
       <Player
@@ -61,6 +84,7 @@ function App() {
         onTimeUpdate={timeUpdateHandler}
         ref={audioRef}
         src={currentSong.audio}
+        onEnded={songEndedHandler}
       ></audio>
     </div>
   );

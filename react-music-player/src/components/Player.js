@@ -19,7 +19,7 @@ const Player = ({
   currentSong,
   songs,
   setCurrentSong,
-  setSongs,
+  setSong,
 }) => {
   const [activeVolume, setActiveVolume] = useState(false);
   //UseEffect Update List
@@ -37,8 +37,7 @@ const Player = ({
         };
       }
     });
-
-    setSongs(newSongs);
+    setSong(newSongs);
   };
 
   const trackAnim = {

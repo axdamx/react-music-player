@@ -16,6 +16,14 @@ h3,h4 {
     padding: 5px
 }
 
+.App {
+    transition: all 0.5s ease;
+}
+
+.library-active {
+    margin-left: 30%;
+}
+
 @import './song';
 @import './player';
 @import './library';
